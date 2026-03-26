@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBourse</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>📈 MyBourse</h1>
+        <p>Suivi des cours boursiers en temps réel</p>
+    </header>
+
+    <main>
+        <section id="controls">
+            <div class="control-group">
+                <label for="stock-select-1">Action 1 :</label>
+                <select id="stock-select-1">
+                    <option value="">-- Choisir --</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="stock-select-2">Action 2 :</label>
+                <select id="stock-select-2">
+                    <option value="">-- Choisir --</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="period-select">Période :</label>
+                <select id="period-select">
+                    <option value="all">Toutes les données</option>
+                    <option value="3">3 derniers jours</option>
+                    <option value="5">5 derniers jours</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="chart-type">Type de graphique :</label>
+                <select id="chart-type">
+                    <option value="line">Ligne</option>
+                    <option value="bar">Barres</option>
+                </select>
+            </div>
+
+            <button id="load-btn">Charger</button>
+        </section>
+
+        <section id="chart-container">
+            <canvas id="stock-chart"></canvas>
+        </section>
+
+        <section id="error-container" class="hidden">
+            <p id="error-message"></p>
+        </section>
+
+        <section id="stock-info" class="hidden">
+            <div id="stock-details"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>MyBourse &copy; 2026</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
