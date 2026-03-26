@@ -4,9 +4,11 @@
   "description": "Application web d'affichage de cours boursiers",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.server.json && tsc -p tsconfig.client.json",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:client": "tsc -p tsconfig.client.json",
     "start": "node dist/server.js",
-    "dev": "tsc --watch"
+    "dev": "tsc -p tsconfig.server.json --watch"
   },
   "dependencies": {
     "express": "^4.18.2"
