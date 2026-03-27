@@ -2,3 +2,9 @@ node_modules/
 dist/
 .idea/
 *.js.map
+
+# Fichiers JS compilés du client
+public/app.js
+public/api/
+public/ui/
+public/charts/
