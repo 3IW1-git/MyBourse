@@ -13,8 +13,10 @@ export interface Stock {
     history: StockHistory[];
 }
 
+// Base URL de l'API REST
 const API_BASE = "/api";
 
+// Récupère la liste complète des actions disponibles
 export async function fetchAllStocks(): Promise<Stock[]> {
     const response = await fetch(`${API_BASE}/stocks`);
 
