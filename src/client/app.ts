@@ -2,8 +2,10 @@ import { fetchAllStocks, fetchStock, Stock } from "./api/stockApi.js";
 import { populateStockSelects, showError, hideError, showStockInfo, hideStockInfo, getSelectedValues, setLoading, getElement } from "./ui/dom.js";
 import { renderChart, destroyChart } from "./charts/stockChart.js";
 import { initThemeToggle } from "./ui/theme.js";
+import { exportToCSV } from "./ui/export.js";
 
 let allStocks: Stock[] = [];
+let displayedStocks: Stock[] = [];
 
 async function init(): Promise<void> {
     initThemeToggle();
@@ -18,6 +20,16 @@ async function init(): Promise<void> {
 
     const loadBtn = getElement<HTMLButtonElement>("load-btn");
     loadBtn.addEventListener("click", handleLoad);
+
+    const exportBtn = getElement<HTMLButtonElement>("export-btn");
+    exportBtn.addEventListener("click", () => {
+        try {
+            exportToCSV(displayedStocks);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Erreur lors de l'export";
+            showError(message);
+        }
+    });
 }
 
 async function handleLoad(): Promise<void> {
@@ -50,6 +62,10 @@ async function handleLoad(): Promise<void> {
 
         renderChart(stocksToDisplay, period, chartType);
         showStockInfo(stocksToDisplay);
+
+        displayedStocks = stocksToDisplay;
+        const exportBtn = getElement<HTMLButtonElement>("export-btn");
+        exportBtn.disabled = false;
     } catch (error) {
         destroyChart();
         const message = error instanceof Error ? error.message : "Erreur lors du chargement des données";
