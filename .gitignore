@@ -2,5 +2,3 @@ node_modules/
 dist/
 .idea/
 *.js.map
-public/*.js
-public/**/*.js
