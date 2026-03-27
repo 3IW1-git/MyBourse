@@ -13,7 +13,6 @@ export interface Stock {
     history: StockHistory[];
 }
 
-// Base URL de l'API REST
 const API_BASE = "/api";
 
 // Récupère la liste complète des actions disponibles
