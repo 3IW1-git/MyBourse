@@ -13,6 +13,8 @@ export interface Stock {
     history: StockHistory[];
 }
 
+import { validateStockArray, isValidStock } from "./validation.js";
+
 const API_BASE = "/api";
 
 // Récupère la liste complète des actions disponibles
@@ -23,13 +25,8 @@ export async function fetchAllStocks(): Promise<Stock[]> {
         throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
     }
 
-    const data: Stock[] = await response.json();
-
-    if (!Array.isArray(data)) {
-        throw new Error("Format de données invalide : tableau attendu");
-    }
-
-    return data;
+    const data: unknown = await response.json();
+    return validateStockArray(data);
 }
 
 export async function fetchStock(symbol: string): Promise<Stock> {
@@ -47,9 +44,9 @@ export async function fetchStock(symbol: string): Promise<Stock> {
         throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
     }
 
-    const data: Stock = await response.json();
+    const data: unknown = await response.json();
 
-    if (!data.symbol || !data.history) {
+    if (!isValidStock(data)) {
         throw new Error("Données de l'action invalides");
     }
 
