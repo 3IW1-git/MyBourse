@@ -87,4 +87,11 @@ export function setLoading(loading: boolean): void {
     const btn = getElement<HTMLButtonElement>("load-btn");
     btn.disabled = loading;
     btn.textContent = loading ? "Chargement..." : "Charger";
+
+    const loader = getElement<HTMLElement>("loader");
+    if (loading) {
+        loader.classList.remove("hidden");
+    } else {
+        loader.classList.add("hidden");
+    }
 }
