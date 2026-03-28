@@ -133,12 +133,21 @@ main {
     background: #43a047;
 }
 
-#chart-container {
+#chart-container,
+#volume-container {
     background: white;
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    color: #1a237e;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e8eaf6;
 }
 
 #error-container {
@@ -206,6 +215,7 @@ body.dark header {
 
 body.dark #controls,
 body.dark #chart-container,
+body.dark #volume-container,
 body.dark #stock-info {
     background: #16213e;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);

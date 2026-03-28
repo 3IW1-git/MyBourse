@@ -1,6 +1,6 @@
 import { fetchAllStocks, fetchStock, Stock } from "./api/stockApi.js";
 import { populateStockSelects, showError, hideError, showStockInfo, hideStockInfo, getSelectedValues, setLoading, getElement } from "./ui/dom.js";
-import { renderChart, destroyChart } from "./charts/stockChart.js";
+import { renderChart, renderVolumeChart, destroyChart } from "./charts/stockChart.js";
 import { initThemeToggle } from "./ui/theme.js";
 import { exportToCSV } from "./ui/export.js";
 
@@ -61,6 +61,7 @@ async function handleLoad(): Promise<void> {
         }
 
         renderChart(stocksToDisplay, period, chartType);
+        renderVolumeChart(stocksToDisplay, period);
         showStockInfo(stocksToDisplay);
 
         displayedStocks = stocksToDisplay;

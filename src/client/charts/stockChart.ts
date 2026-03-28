@@ -8,6 +8,7 @@ const COLORS = [
 ];
 
 let currentChart: any = null;
+let volumeChart: any = null;
 
 export function filterByPeriod(history: StockHistory[], period: string): StockHistory[] {
     if (period === "all") {
@@ -99,9 +100,63 @@ export function renderChart(
     });
 }
 
+export function renderVolumeChart(stocks: Stock[], period: string): void {
+    const canvas = document.getElementById("volume-chart") as HTMLCanvasElement | null;
+    if (!canvas) return;
+
+    const container = document.getElementById("volume-container");
+    if (container) container.classList.remove("hidden");
+
+    if (volumeChart) {
+        volumeChart.destroy();
+        volumeChart = null;
+    }
+
+    const volumeColors = [
+        "rgba(26, 35, 126, 0.6)",
+        "rgba(211, 47, 47, 0.6)"
+    ];
+
+    const datasets = stocks.map((stock, index) => {
+        const filtered = filterByPeriod(stock.history, period);
+        return {
+            label: `${stock.symbol} - Volume`,
+            data: filtered.map(h => h.volume),
+            backgroundColor: volumeColors[index % volumeColors.length],
+            borderWidth: 1
+        };
+    });
+
+    const filtered = filterByPeriod(stocks[0].history, period);
+    const labels = filtered.map(h => h.date);
+
+    volumeChart = new Chart(canvas, {
+        type: "bar",
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: "top" }
+            },
+            scales: {
+                y: {
+                    title: { display: true, text: "Volume" },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
 export function destroyChart(): void {
     if (currentChart) {
         currentChart.destroy();
         currentChart = null;
     }
+    if (volumeChart) {
+        volumeChart.destroy();
+        volumeChart = null;
+    }
+    const container = document.getElementById("volume-container");
+    if (container) container.classList.add("hidden");
 }
