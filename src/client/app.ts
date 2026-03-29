@@ -43,6 +43,11 @@ async function handleLoad(): Promise<void> {
         return;
     }
 
+    if (symbol2 && symbol2 === symbol1) {
+        showError("Impossible de comparer une action avec elle-même. Veuillez sélectionner deux actions différentes.");
+        return;
+    }
+
     setLoading(true);
 
     try {
@@ -51,17 +56,13 @@ async function handleLoad(): Promise<void> {
         const stock1 = await fetchStock(symbol1);
         stocksToDisplay.push(stock1);
 
-        if (symbol2 && symbol2 !== symbol1) {
+        if (symbol2) {
             const stock2 = await fetchStock(symbol2);
             stocksToDisplay.push(stock2);
-        } else if (symbol2 === symbol1) {
-            showError("Veuillez sélectionner deux actions différentes");
-            setLoading(false);
-            return;
         }
 
         renderChart(stocksToDisplay, period, chartType);
-        renderVolumeChart(stocksToDisplay, period);
+        renderVolumeChart(stocksToDisplay, period, chartType);
         showStockInfo(stocksToDisplay);
 
         displayedStocks = stocksToDisplay;

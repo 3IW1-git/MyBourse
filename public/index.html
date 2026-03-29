@@ -58,6 +58,10 @@
             <button id="export-btn" disabled>📥 Exporter CSV</button>
         </section>
 
+        <section id="error-container" class="hidden">
+            <p id="error-message"></p>
+        </section>
+
         <div id="loader" class="hidden">
             <div class="spinner"></div>
             <p>Chargement des données...</p>
@@ -70,10 +74,6 @@
         <section id="volume-container" class="hidden">
             <h2 class="section-title">Volume des échanges</h2>
             <canvas id="volume-chart"></canvas>
-        </section>
-
-        <section id="error-container" class="hidden">
-            <p id="error-message"></p>
         </section>
 
         <section id="stock-info" class="hidden">

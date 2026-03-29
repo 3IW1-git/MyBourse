@@ -100,7 +100,7 @@ export function renderChart(
     });
 }
 
-export function renderVolumeChart(stocks: Stock[], period: string): void {
+export function renderVolumeChart(stocks: Stock[], period: string, chartType: string): void {
     const canvas = document.getElementById("volume-chart") as HTMLCanvasElement | null;
     if (!canvas) return;
 
@@ -117,13 +117,22 @@ export function renderVolumeChart(stocks: Stock[], period: string): void {
         "rgba(211, 47, 47, 0.6)"
     ];
 
+    const volumeBorders = [
+        "rgb(26, 35, 126)",
+        "rgb(211, 47, 47)"
+    ];
+
     const datasets = stocks.map((stock, index) => {
         const filtered = filterByPeriod(stock.history, period);
         return {
             label: `${stock.symbol} - Volume`,
             data: filtered.map(h => h.volume),
             backgroundColor: volumeColors[index % volumeColors.length],
-            borderWidth: 1
+            borderColor: volumeBorders[index % volumeBorders.length],
+            borderWidth: chartType === "line" ? 2 : 1,
+            tension: 0.3,
+            fill: chartType === "line",
+            pointRadius: chartType === "line" ? 4 : 0
         };
     });
 
@@ -131,7 +140,7 @@ export function renderVolumeChart(stocks: Stock[], period: string): void {
     const labels = filtered.map(h => h.date);
 
     volumeChart = new Chart(canvas, {
-        type: "bar",
+        type: chartType,
         data: { labels, datasets },
         options: {
             responsive: true,
