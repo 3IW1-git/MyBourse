@@ -67,7 +67,7 @@ src/
 ### Principales
 - Sélection d'une ou deux actions boursières
 - Comparaison visuelle sur un même graphique
-- Choix de la période d'affichage (3 jours, 5 jours, toutes)
+- Choix de la période d'affichage (3 jours, 5 jours, 1 semaine, 1 mois, 1 an, toutes)
 - Changement du type de graphique (ligne / barres)
 - Graphique des volumes échangés
 - Affichage des détails de chaque action (secteur, prix, données)
